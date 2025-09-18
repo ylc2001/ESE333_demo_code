@@ -1,56 +1,55 @@
 # ESE333 Demo Code Makefile
 # Builds all demo programs for common system operations
 
+
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -pedantic
+BUILD_DIR = build
 TARGETS = process_demo fileio_demo pipe_demo directory_demo
+BINARIES = $(addprefix $(BUILD_DIR)/,$(TARGETS))
 
 # Default target - build all demos
-all: $(TARGETS)
+all: $(BUILD_DIR) $(BINARIES)
 
-# Individual targets
-process_demo: process_demo.c
+$(BUILD_DIR):
+	mkdir -p $@
+
+$(BUILD_DIR)/%: %.c | $(BUILD_DIR)
 	$(CC) $(CFLAGS) -o $@ $<
 
-fileio_demo: fileio_demo.c
-	$(CC) $(CFLAGS) -o $@ $<
-
-pipe_demo: pipe_demo.c
-	$(CC) $(CFLAGS) -o $@ $<
-
-directory_demo: directory_demo.c
-	$(CC) $(CFLAGS) -o $@ $<
 
 # Run all demos
 run-all: all
 	@echo "=== Running Process Demo ==="
-	./process_demo
+	$(BUILD_DIR)/process_demo
 	@echo
 	@echo "=== Running File I/O Demo ==="
-	./fileio_demo
+	$(BUILD_DIR)/fileio_demo
 	@echo
 	@echo "=== Running Pipe Demo ==="
-	./pipe_demo
+	$(BUILD_DIR)/pipe_demo
 	@echo
 	@echo "=== Running Directory Demo ==="
-	./directory_demo
+	$(BUILD_DIR)/directory_demo
+
 
 # Run individual demos
-run-process: process_demo
-	./process_demo
+run-process: all
+	$(BUILD_DIR)/process_demo
 
-run-fileio: fileio_demo
-	./fileio_demo
+run-fileio: all
+	$(BUILD_DIR)/fileio_demo
 
-run-pipe: pipe_demo
-	./pipe_demo
+run-pipe: all
+	$(BUILD_DIR)/pipe_demo
 
-run-directory: directory_demo
-	./directory_demo
+run-directory: all
+	$(BUILD_DIR)/directory_demo
+
 
 # Clean up compiled programs and temporary files
 clean:
-	rm -f $(TARGETS)
+	rm -f $(BINARIES)
 	rm -f *.o
 	rm -f demo_file.txt lowlevel_demo.txt copied_file.txt output.txt
 
