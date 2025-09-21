@@ -13,7 +13,7 @@
 #include <string.h>
 #include <fcntl.h>
 
-void demo_basic_pipe() {
+void demo_basic_pipe(void) {
     printf("=== Basic Pipe Demo ===\n");
     
     int pipefd[2];
@@ -50,17 +50,20 @@ void demo_basic_pipe() {
     printf("\n");
 }
 
-void demo_pipe_with_exec() {
+/**
+ * Demonstrates using a pipe to implement "ls | wc -l"
+ */
+void demo_pipe_with_exec(void) {
     printf("=== Pipe with Exec Demo (ls | wc -l) ===\n");
-    
+
     int pipefd[2];
     pid_t pid1, pid2;
-    
+
     if (pipe(pipefd) == -1) {
         perror("pipe failed");
         return;
     }
-    
+
     // First child: execute 'ls'
     pid1 = fork();
     if (pid1 == -1) {
@@ -71,11 +74,12 @@ void demo_pipe_with_exec() {
         close(pipefd[0]);  // Close read end
         dup2(pipefd[1], STDOUT_FILENO);  // Redirect stdout to pipe
         close(pipefd[1]);
-        execlp("ls", "ls", NULL);
-        perror("execlp ls failed");
+        char *args_ls[] = {"ls", NULL};
+        execvp("ls", args_ls);
+        perror("execvp ls failed");
         exit(1);
     }
-    
+
     // Second child: execute 'wc -l'
     pid2 = fork();
     if (pid2 == -1) {
@@ -86,11 +90,12 @@ void demo_pipe_with_exec() {
         close(pipefd[1]);  // Close write end
         dup2(pipefd[0], STDIN_FILENO);  // Redirect stdin from pipe
         close(pipefd[0]);
-        execlp("wc", "wc", "-l", NULL);
-        perror("execlp wc failed");
+        char *args_wc[] = {"wc", "-l", NULL};
+        execvp("wc", args_wc);
+        perror("execvp wc failed");
         exit(1);
     }
-    
+
     // Parent closes both ends and waits
     close(pipefd[0]);
     close(pipefd[1]);
@@ -99,7 +104,7 @@ void demo_pipe_with_exec() {
     printf("\n");
 }
 
-void demo_dup2_file_redirection() {
+void demo_dup2_file_redirection(void) {
     printf("=== dup2 File Redirection Demo ===\n");
     
     pid_t pid = fork();
@@ -142,7 +147,7 @@ void demo_dup2_file_redirection() {
     printf("\n");
 }
 
-void demo_bidirectional_pipe() {
+void demo_bidirectional_pipe(void) {
     printf("=== Bidirectional Communication Demo ===\n");
     
     int pipe1[2], pipe2[2];  // pipe1: parent->child, pipe2: child->parent
@@ -193,7 +198,7 @@ void demo_bidirectional_pipe() {
     printf("\n");
 }
 
-int main() {
+int main(void) {
     printf("ESE333 Pipes and I/O Redirection Demo\n");
     printf("=====================================\n\n");
     
@@ -202,6 +207,5 @@ int main() {
     demo_dup2_file_redirection();
     demo_bidirectional_pipe();
     
-    printf("All pipe and redirection demos completed!\n");
     return 0;
 }

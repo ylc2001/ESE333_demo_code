@@ -13,7 +13,7 @@
 #include <errno.h>
 #include <string.h>
 
-void print_current_directory() {
+void print_current_directory(void) {
     char cwd[1024];
     if (getcwd(cwd, sizeof(cwd)) != NULL) {
         printf("Current working directory: %s\n", cwd);
@@ -22,13 +22,13 @@ void print_current_directory() {
     }
 }
 
-void demo_getcwd_basic() {
+void demo_getcwd_basic(void) {
     printf("=== Basic getcwd Demo ===\n");
     print_current_directory();
     printf("\n");
 }
 
-void demo_chdir_operations() {
+void demo_chdir_operations(void) {
     printf("=== Directory Changing Demo ===\n");
     
     char original_dir[1024];
@@ -75,7 +75,7 @@ void demo_chdir_operations() {
     printf("\n");
 }
 
-void demo_directory_traversal() {
+void demo_directory_traversal(void) {
     printf("=== Directory Traversal Demo ===\n");
     
     char original_dir[1024];
@@ -121,7 +121,7 @@ void demo_directory_traversal() {
     printf("\n");
 }
 
-void demo_getcwd_with_different_sizes() {
+void demo_getcwd_with_different_sizes(void) {
     printf("=== getcwd with Different Buffer Sizes Demo ===\n");
     
     // Try with small buffer (this might fail for long paths)
@@ -154,7 +154,7 @@ void demo_getcwd_with_different_sizes() {
     printf("\n");
 }
 
-void demo_error_handling() {
+void demo_error_handling(void) {
     printf("=== Error Handling Demo ===\n");
     
     // Try to change to a non-existent directory
@@ -179,7 +179,7 @@ void demo_error_handling() {
     printf("\n");
 }
 
-int main() {
+int main(void) {
     printf("ESE333 Directory Operations Demo\n");
     printf("================================\n\n");
     

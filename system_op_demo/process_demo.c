@@ -12,7 +12,7 @@
 #include <sys/wait.h>
 #include <string.h>
 
-void demo_fork_basic() {
+void demo_fork_basic(void) {
     printf("=== Basic Fork Demo ===\n");
     pid_t pid = fork();
     
@@ -35,7 +35,7 @@ void demo_fork_basic() {
     printf("\n");
 }
 
-void demo_execvp() {
+void demo_execvp(void) {
     printf("=== Execvp Demo ===\n");
     pid_t pid = fork();
     
@@ -60,7 +60,7 @@ void demo_execvp() {
     printf("\n");
 }
 
-void demo_multiple_children() {
+void demo_multiple_children(void) {
     printf("=== Multiple Children Demo ===\n");
     const int num_children = 3;
     pid_t children[num_children];
@@ -93,7 +93,7 @@ void demo_multiple_children() {
     printf("\n");
 }
 
-int main() {
+int main(void) {
     printf("ESE333 Process Operations Demo\n");
     printf("==============================\n\n");
     

@@ -12,7 +12,7 @@
 #include <fcntl.h>
 #include <string.h>
 
-void demo_stdio_operations() {
+void demo_stdio_operations(void) {
     printf("=== Stdio Operations Demo (fgets/fputs) ===\n");
     
     const char *filename = "demo_file.txt";
@@ -47,7 +47,7 @@ void demo_stdio_operations() {
     printf("\n");
 }
 
-void demo_lowlevel_operations() {
+void demo_lowlevel_operations(void) {
     printf("=== Low-level Operations Demo (open/close) ===\n");
     
     const char *filename = "lowlevel_demo.txt";
@@ -93,7 +93,7 @@ void demo_lowlevel_operations() {
     printf("\n");
 }
 
-void demo_file_copying() {
+void demo_file_copying(void) {
     printf("=== File Copying Demo ===\n");
     
     const char *source = "demo_file.txt";
@@ -128,7 +128,7 @@ void demo_file_copying() {
     printf("\n");
 }
 
-void cleanup_demo_files() {
+void cleanup_demo_files(void) {
     printf("=== Cleanup ===\n");
     unlink("demo_file.txt");
     unlink("lowlevel_demo.txt");
@@ -136,7 +136,7 @@ void cleanup_demo_files() {
     printf("Cleaned up demo files\n");
 }
 
-int main() {
+int main(void) {
     printf("ESE333 File I/O Operations Demo\n");
     printf("===============================\n\n");
     
