@@ -3,6 +3,6 @@
 
 int main() {
     (fork() || fork()) && (fork() || fork());
-    printf("Hello");
+    printf("Hello\n");
     return 0;
 }
