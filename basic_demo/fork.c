@@ -3,10 +3,16 @@
 #include <stdio.h>
 #include <unistd.h>
 
-int main() {
-    fork();
-    fork();
-    fork();
-    printf("Hello from process %d\n", getpid());
-    return 0;
+int main()
+{
+  int pid;
+  pid = fork();
+  printf("fork() returned %d\n", pid);
+
+  if(pid == 0){
+    printf("child\n");
+  } else {
+    printf("parent\n");
+  }
+  return 0;
 }
